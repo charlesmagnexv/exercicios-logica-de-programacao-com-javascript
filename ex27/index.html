@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Exercício 10</title>
+</head>
+<body>
+    <script>
+        /*
+        27) Programa una clase llamada Pelicula.
+
+        La clase recibirá un objeto al momento de instanciarse con los siguentes datos: id de la película en 
+        IMDB, titulo, director, año de estreno, país o países de origen, géneros y calificación en IMBD.
+        - Todos los datos del objeto son obligatorios.
+        - Valida que el id IMDB tenga 9 caracteres, los primeros 2 sean letras y los 
+            7 restantes números.
+        - Valida que el título no rebase los 100 caracteres.
+        - Valida que el director no rebase los 50 caracteres.
+        - Valida que el año de estreno sea un número entero de 4 dígitos.
+        - Valida que el país o paises sea introducidos en forma de arreglo.
+        - Valida que los géneros sean introducidos en forma de arreglo.
+        - Valida que los géneros introducidos esten dentro de los géneros 
+            aceptados*.
+        - Crea un método estático que devuelva los géneros aceptados*.
+        - Valida que la calificación sea un número entre 0 y 10 pudiendo ser 
+            decimal de una posición.
+        - Crea un método que devuelva toda la ficha técnica de la película.
+        - Apartir de un arreglo con la información de 3 películas genera 3 
+            instancias de la clase de forma automatizada e imprime la ficha técnica 
+            de cada película.
+
+        * Géneros Aceptados: Action, Adult, Adventure, Animation, Biography, Comedy, Crime, Documentary ,Drama, 
+        Family, Fantasy, Film Noir, Game-Show, History, Horror, Musical, Music, Mystery, News, Reality-TV, Romance, 
+        Sci-Fi, Short, Sport, Talk-Show, Thriller, War, Western.
+        */
+        class Filme{
+            constructor(id,titulo,diretor,anoEstreia,pais,genero,qualificacao){
+                this.id = id
+                this.titulo = titulo
+                this.diretor = diretor
+                this.ano = anoEstreia
+                this.pais = pais
+                this.genero = genero
+                this.qualificacao = qualificacao
+                this.validarIMDB(id)//as funções que vão retornar algo no objeto devem ser colocadas aqui, significa que serão diretamente usadas pelo objeto
+                this.validarTitulo(titulo)
+                this.validarDiretor(diretor)
+                this.validarAno(anoEstreia)
+                this.validarPais(pais)
+                this.validarGenero(genero)
+                this.validarQualificacao(qualificacao)
+            }
+            validarCadenas(propriedade,valor){/*propriedade vai receber o nome da propriedade, e valor, o valor da propriedade
+                . Criei está função, "validarCadenas", para usá-lapara validar cadeias de texto mais para frente*/
+                if(!valor) return console.warn(`${propriedade} está vazio`);
+                if(typeof valor!== "string") return console.error(`${propriedade} "${valor}" colocado não é uma cadeia de texto `);
+                return true//para caso tudo esteja correto
+            }
+            validarTamanho(propriedade,valor,tamanho){
+                if(valor.length > tamanho) return console.error(`${propriedade} excede o número mínimo de caracteres permtidos.`);
+                return true;
+            }
+            validarNumero(propriedade,valor){
+                if(!valor) return console.warn(`${propriedade} "${valor}" está vazio`);
+                if(typeof valor !== "number") return console.error(`${propriedade} "${valor}" colocado não é um número`);
+                return true;
+            }
+            validarArregolo(propriedade,valor){
+                if(!valor) return console.warn("O campo está vazio");
+                if(!(valor instanceof Array)) console.error("Não foi colocado um vetor");
+                if(valor.length === 0) console.error("O vetor está vazio");
+                for(let elemento of valor){
+                    if(typeof elemento !== "string") return console.error("O valor não é ma cadeia de texto");
+                }
+                return true
+            }
+            validarIMDB(id){
+                if(this.validarCadenas("IMDB id",id)){//se isto for true, entra no bloco
+                    if(!(/^([a-z]){2}([0-9]){7}$/.test(id))){
+                        return console.error("Esta entrada do id não é válida");
+                    }
+                }
+            }
+            validarTitulo(titulo){
+                if(this.validarCadenas("Titulo",titulo)){
+                    this.validarTamanho("Titulo",titulo,100)//não preciso do if porque a função "validarTamanho" vai devolver "true" caso tudo esteja correto
+                }//e faz com que o "validarTitulo" retorne true também, já que a função para no primeiro return
+            }
+            validarDiretor(diretor){
+                if(this.validarCadenas("Diretor",diretor)){
+                    this.validarTamanho("Diretor",diretor,50)
+                }
+            }
+            validarAno(anoEstreia){
+                if(this.validarNumero("Ano de estreia", anoEstreia)){
+                    if(!(/^([0-9]){4}$/.test(anoEstreia))){
+                        return console.error(`Ano de estreia não é válido`);
+                    }
+                }
+            }
+            validarPais(pais){
+                this.validarArregolo("País",pais)
+            }
+            validarGenero(genero){
+                if(this.validarArregolo("Genero",genero)){
+                    for(let i of genero){
+                        console.log(i,Filme.listaGeneros.includes(genero));
+                        if(!Filme.listaGeneros.includes(genero)){
+                            console.error(`Generos incorretos`);
+                            Filme.generosAceitos()
+                        }
+                    }
+                }
+            }
+            validarQualificacao(qualificacao){
+                if(this.validarNumero("Qualificação",qualificacao)){
+                    return (qualificacao < 0 || qualificacao > 10)?console.error("A qualificação tem de serentre 0 e 10")
+                    :this.qualificacao = qualificacao.toFixed(1)
+                }
+            }
+            fichaTecnica(){
+                console.info(`Ficha técnica:\n Título: ${this.titulo}\n Diretor: ${this.diretor}\n Ano: ${this.ano}\n País: ${this.pais.join("-")}\n Generos: ${this.generos}\n Qualificação: ${this.qualificacao}\n IMDB: ${this.id}`)
+            }
+            static get listaGeneros(){
+                return ["Action","Adventure", "Animation", "Biography", "Comedy", "Crime", "Documentary" ,
+                "Drama", "Family", "Fantasy", "Film Noir", "Game-Show", "History", "Horror", "Musical", "Music", "Mystery", "News", "Reality-TV", "Romance", "Sci-Fi", "Short", "Sport", "Talk-Show", "Thriller", "War", "Western"];
+            }
+            static generosAceitos(){
+                    return console.info(`Generos aceitos: ${Filme.listaGeneros.join(",")}`)
+            }//este método estático consome o método estático que está acima
+        }
+        //Filme.generosAceitos();
+        const film = new Filme("tt0047478","Os Setes Samurais","Akira Kurosawa",1957,["Japão","Ásia"],["Action","Drama","Adventure"],9)
+        const meusFilmes = [{id:"tt0037478",titulo:"Céu e Inferno",diretor:"Akira Kurosawa",anoEstreia:1960,pais: ["Japão"],generos:["Action","Crime"],qualificacao: 8.6}
+        ]
+        meusFilmes.forEach(elemento => new Filme(elemento).fichaTecnica())
+        film.fichaTecnica()
+    </script>
+</body>
+</html>

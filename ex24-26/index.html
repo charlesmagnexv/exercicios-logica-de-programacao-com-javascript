@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Exercício 08</title>
+</head>
+<body>
+    <script>
+        /*
+        24) Programa una función que dado un arreglo de números devuelva un objeto con dos arreglos, el primero tendrá los numeros 
+        ordenados en forma ascendente y el segundo de forma descendiente, pe. miFuncion([7, 5,7,8,6]) 
+        devolverá { asc: [5,6,7,7,8], desc: [8,7,7,6,5] }.
+        25) Programa una función que dado un arreglo de elementos, elimine los duplicados, 
+        pe. miFuncion(["x", 10, "x", 2, "10", 10, true, true]) devolverá ["x", 10, 2, "10", true].
+        26) Programa una función que dado un arreglo de números obtenga el promedio, pe. promedio([9,8,7,6,5,4,3,2,1,0]) devolverá 4.5.
+        */
+        //24
+        console.log("*****24*****");
+        const crescenteDecrescente = (vetor = undefined) => {
+            if(vetor === undefined) return console.warn("O campo está vazio");
+            if(!(vetor instanceof Array)) return console.error("Não foi colocado um vetor");
+            if(vetor.length === 0) return console.warn("O vetor está vazio");
+            for(let elemento of vetor){
+                if(typeof elemento!== "number") return console.error("Foi inserido um array não numérico");
+            }
+            return console.info({
+                vetor,
+                asc: vetor.map(function(el){return el}).sort((a,b) => a-b),/*uso o map para criar um novo vetor e não alterar o vetor original. O sort vai pegar
+                os dois parâmetros 'a' e 'b' e subtraí-los, de acordo com o resultado da subtração, vai jogar os arrays para um lugar específico */
+                desc: vetor.map(el => el).sort((a,b)=>b-a)/*Faz sentido em pensar em map como um método que "mapeia" o vetor*/
+            })
+        }
+        crescenteDecrescente()
+        crescenteDecrescente([1,5,3,7,8,2])
+        //25
+        console.log("*****25*****");
+        const duplicados = (vetor2 = undefined) =>{
+            if(vetor2 === undefined) return console.warn("O campo está vazio");
+            if(!(vetor2 instanceof Array)) return console.error("Não foi colocado um vetor");
+            if(vetor2.length === 0) console.warn("O vetor está vazio");
+            return console.info({
+                vetor2,
+                semDuplicados: vetor2.filter((valor,indice, oMesmo) => oMesmo.indexOf(valor) === indice)/*valor e indice dizem respeito ao vetor2, recebem, respectivamente, o valor que o vetor guarda e o índice deste valor 
+                e oMesmo também diz respeito ao vetor2, ele é o próprio vetor2. O indexOf retorna o índice da primeira ocorrência do parâmetro passado; caso o valor achado em oMesmo for igual ao indice do elemento
+                valor, significa que é a primeira vez que aquele valor foi achado no "vetor2"; no caso do segundo "x" abaixo, ele é achado na posição 0,
+                todavia seu índice atual é 2, não 0, pois 0 é o índice do primeiro "x", neste caso o valor retornado de indexOf não é igual ao valor do índice
+                do segundo elemento "x" do vetor2(que no parâmetro é oMesmo), porque é diferente, retornará false, pois retornará true caso sejam iguais o índice
+                e valor retornado pelo indexOf, e porque retorna false, o filter não irá colocar o segundo "x" no novo array a ser formado */
+            })
+        }
+        duplicados(["x", 10, "x", 2, "10", 10, true, true])
+        duplicados()
+        //26
+        console.log("*****26*****");
+        const medio = (vetor3 = undefined) => {
+            if(vetor3 === undefined) return console.warn("O campo está vazio");
+            if(!(vetor3 instanceof Array)) return console.error("Não foi colocado um vetor");
+            if(vetor3.length === 0) return console.warn("O vetor está vazio");
+            for(let elemento2 of vetor3){
+                if(typeof elemento2 !== "number"){
+                    return console.error("Foi inserido um vetor não numérico")
+                }
+            }
+            return console.log(vetor3.reduce((acumulador, valor, indice,arregolo) => {
+                acumulador += valor;
+                if(indice === arregolo.length-1){
+                    return `A média dos números do vetor é: ${acumulador/arregolo.length}`
+                }else{
+                    return acumulador//para retornar o acumulador para ser usado no próximo ciclo. Aparentemente o reduce funciona como um for, ou while etc.
+                }
+            }));
+        }
+        medio([9,8,7,6,5,4,3,2,1,0])
+    </script>
+</body>
+</html>

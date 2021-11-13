@@ -1,2 +1,1 @@
-# exercicios-logica-de-programacao-com-javascript
-Exerc√≠cios de l√≥gica de programa√ß√£o usando a linguagem JavaScript.
+Em casa pasta h· um arquivo index.html; os exercÌcios est„o dentro destes arquivos index, basta acess·-los.

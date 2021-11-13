@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Exercício Lógica de Programação 01</title>
+</head>
+<body>
+    <script>
+        /*1) Programa una función que cuente el número de caracteres de una cadena de texto, pe. miFuncion("Hola Mundo") devolverá 10.
+        2) Programa una función que te devuelva el texto recortado según el número de caracteres indicados, pe. miFuncion("Hola Mundo", 4) devolverá "Hola".
+        3) Programa una función que dada una String te devuelva un Array de textos separados por cierto caracter, pe. miFuncion('hola que tal', ' ') devolverá ['hola', 'que', 'tal'].
+        4) Programa una función que repita un texto X veces, pe. miFuncion('Hola Mundo', 3) devolverá Hola Mundo Hola Mundo Hola Mundo.
+        */
+        //1
+        console.log("*********1********")
+        let contador = 0;
+        function quantidadeLetras(texto){
+            if(texto === undefined) return console.error("Coloque um texto")
+            return console.log(texto.length)
+        }
+        //console.log(quantidadeLetras("Olá, mundo"))
+        //const quantidade = (cadeia) => cadeia.length//outra forma de fazer, todavia, com função expressada
+        quantidadeLetras("Olá, mundo")
+        //2
+        console.log("*********2********")
+        function textoRecortado(texto2,num){//passarei os parâmetros cadeia de texto e número de caracteres que quero que retornem
+            if(texto2 === undefined) return console.error("Coloque um texto")
+            if(num === undefined) return console.error("Coloque um número")
+            else if(num <= 0) return console.error("0 e números negativos são inválidos")
+            return texto2.slice(0,num);/*faço extrair da posição 0 até o a segunda posição, mesmo que tenha passado 3, 
+            o último parâmetro(no caso, 3) será contado a partir do 1*/
+        }
+        console.log(textoRecortado("Olá, mundo",3))
+        //3
+        console.log("*********3********")
+        function palavrasSeparadas(texto3,separacao){
+            if(texto3 === undefined) return console.error("Coloque um texto")
+            if(separacao === undefined) return console.error("Coloque um parâmetro de separação")
+            return console.log(texto3.split(separacao))/*serve para transformar strings em arrays, eu as separo, 
+            o parâmetro de separação eu passo, no caso, o parâmetro foi o espaço em branco*/
+        }
+        palavrasSeparadas("Olá mundo, bem-vindos"," ")//o segundo argumento é o espaço em branco que passei como parâmetro
+        //4
+        console.log("*********4********")
+        function repetirFuncao(texto4,repeticao){
+            if(repeticao===undefined) return console.warn("Não colocaste um número");
+            else if(repeticao<=0) return console.error("0 e números negativos são números inválidos");
+            return console.log(texto4.repeat(repeticao))
+        }
+        repetirFuncao('Olá, mundo ',4)//quantas vezes quero que repita
+    </script>
+</body>
+</html>

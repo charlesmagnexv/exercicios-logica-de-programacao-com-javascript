@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Exercícios 04</title>
+</head>
+<body>
+    <script>
+        /*
+        12) Programa una función que determine si un número es primo (aquel que solo es divisible por sí mismo y 1) 
+        o no, pe. miFuncion(7) devolverá true.
+        13) Programa una función que determine si un número es par o impar, pe. miFuncion(29) devolverá Impar.
+        14) Programa una función para convertir grados Celsius a Fahrenheit y viceversa, pe. miFuncion(0,"C") devolverá 32°F.
+        */
+       //12
+       console.log("*******12*******")
+       const primo = (numero) => {
+           let contadorDePrimo=0;
+           if(numero === undefined) return console.warn("Coloque um número, por favor :)")
+           else if(numero === 1) return console.error("Número não pode ser 1")
+           else if(typeof numero !== "number") return console.error("O que colocaste NÃO é um número");
+           else if(numero < 0) return console.error("Por favor, coloque um número positivo")
+           for(let c=1;c<=numero;c++){
+               if(numero%c==0){
+                   contadorDePrimo ++;
+               }
+           }
+           return(contadorDePrimo === 2)?console.log(`${numero} é um número primo`):console.log(`${numero} não é um número primo`)
+       }
+       primo(11)
+       //13
+       console.log("*******13*******")
+       const imparOuPar = (numero2) => {
+           if(numero2 === undefined)return console.warn("Insira um número")
+           if(typeof numero2 !== "number") return console.error("NÃO colocastes um número");
+           if(numero2%2===0) return console.info(`O número ${numero2} é par`)
+           else return console.info(`O número ${numero2} é ímpar`)
+       }
+       imparOuPar(24)
+       //14
+       console.log("*******14*******")
+       const converter = (temp,medida) => {
+           if(temp === undefined) return console.warn("Coloque uma temperatura!")
+           if(typeof temp !== "number") return console.error("NÃO colocastes um número");
+           if(!medida) return console.warn("Coloque uma medida de temperatura!")
+           if(typeof medida !== "string") return console.error("NÃO colocastes uma letra");
+           if(medida.length !== 1) return console.error("Medida não reconhecida");
+           if(medida === 'c' || medida === "C") return console.log((1.8*temp)+32 + "°F")
+           else if(medida === "f" || medida === "F") return console.log(((temp-32)/1.8)+"°C")
+           else return console.error("Coloque uma medida válida")
+       }
+       converter(0,'c')
+    </script>
+</body>
+</html>

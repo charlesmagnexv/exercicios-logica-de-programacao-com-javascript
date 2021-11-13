@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Exercícios 02</title>
+</head>
+<body>
+    <script>/*
+        5) Programa una función que invierta las palabras de una cadena de texto, pe. miFuncion("Hola Mundo") devolverá "odnuM aloH".
+        6) Programa una función para contar el número de veces que se repite una palabra en un texto largo, pe. miFuncion("hola mundo adios mundo", "mundo") devolverá 2.
+        7) Programa una función que valide si una palabra o frase dada, es un palíndromo (que se lee igual en un sentido que en otro), pe. mifuncion("Salas") devolverá true.
+        8) Programa una función que elimine cierto patrón de caracteres de un texto dado, pe. miFuncion("xyz1, xyz2, xyz3, xyz4 y xyz5", "xyz") devolverá  "1, 2, 3, 4 y 5.
+        */
+       //5
+       console.log("**************5**************")
+       let arregolo = [], arregolo2 = [];//arregolo será o argumento que se toornará array, arregolo2 será o argumento ao contrário
+       i = 0;//para controlar o índice do arregolo2
+       function inversao(texto){//recebe a string
+           arregolo = texto.split('')//separa a string palavras por palavra
+           for(c = arregolo.length;c >= 0; c--){//prrenche o arregolo2 com as propriedades do arregolo
+               arregolo2[i] = arregolo[c]//todavia, o faz ao contrário, ou seja, a primeira posição do arregolo2 guardará a última do arregolo
+               i++
+           }
+           return arregolo2//retorno o arregolo2
+       }
+       console.log(inversao("Olá, mundo"))
+       //6
+       console.log("**************6**************")
+       const repeticaoDePalavra = (cadeia4 ="", texto2 = "") => {
+           let c = 0, i = 0
+           if(!cadeia4) return console.warn("Não colocaste um texto")
+           if(!texto2) return console.warn("Não colocaste uma palavra")
+           while(i !== -1){
+               i = cadeia4.indexOf(texto2,i)//vai scanear palavra por palavra na string procurando as coincidências
+               if(i!=-1){//quando achar na primeira vez, vai entrar aqui
+                   i++;
+                   c++;//para saber quantas vezes a palavra se repete
+               }
+           }
+           return console.info(`A palavra ${texto2} se repete ${c} vezes`)
+       }
+       repeticaoDePalavra("Hola mundo adios mundo", "mundo")
+       //7
+       console.log("**************7**************")
+       let arregolo3 = [], arregolo4 = [],cadeia, cadeia2,bool
+       i = 0
+       function palindromo(texto){
+           arregolo3 = texto.split('')//separo cada caracter em propriedades de arrays
+           for(c = arregolo3.length; c >= 0; c--){
+               arregolo4[i] = arregolo3[c]//coloco as propriedades de arregolo3 em arregolo4, mas, ao contrário
+               i++
+           }
+           arregolo4.shift()//tive de remover a primeira posição do arregolo4, pois estava como undefined e fazia o arregolo4 ter uma posição a mais
+           cadeia = arregolo3.join('')//transformo o arregolo4 em string, o parâmetro diz de qual maneira quero juntar cada propriedade do array
+           cadeia2 = arregolo4.join('')//o mesmo; note que é um split ao contrário
+           if(cadeia.toLowerCase() == cadeia2.toLowerCase()){//deixo todos os caracteres em minúsculo a fim de conseguir comparar as strings a fim de ver se são palíndromas
+               bool = true;//caso sejam iguais, guardo true
+           }else{
+               bool = false;//caso sejam diferentes, guardo false aqui
+           }
+           return bool//retorno a variável booleana
+       }
+       console.log(palindromo("Reviver"))
+       //console.log(arregolo3, arregolo4,cadeia,cadeia2)
+       //8
+       console.log("**************8**************")
+       let cadeia3
+       function subtrair(texto3,padrao){
+           return console.log(texto3.replaceAll(new RegExp(padrao,"ig"),''))/*"padrao" é o padrao de caracteres que quero retirar, o segundo argumento é com o que quero preencher no lugar;
+           neste caso, eu preenchi com nada, com vazio*/
+       }
+       subtrair("xyz1, xyz2, xyz3, xyz4 y xyz5","xyz")
+    </script>
+</body>
+</html>

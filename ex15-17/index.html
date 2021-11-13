@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Exercícios 05</title>
+</head>
+<body>
+    <script>
+        /*
+        15) Programa una función para convertir números de base binaria a decimal y viceversa, pe. miFuncion(100,2) devolverá 4 base 10.
+        16) Programa una función que devuelva el monto final después de aplicar un descuento a una cantidad dada, pe. miFuncion(1000, 20) 
+        devolverá 800.
+        17) Programa una función que dada una fecha válida determine cuantos años han pasado hasta el día de hoy, 
+        pe. miFuncion(new Date(1984,4,23)) devolverá 35 años (en 2020).
+        */
+        //15
+        console.log("********15********")
+        const binarioDecimal = (numero = undefined,base = undefined) => {
+            if(numero === undefined) return console.warn("Coloque um valor");
+            if(typeof numero !== "number") return console.error("Você não colocou um número");
+            if(base === undefined) return console.warn("Coloque o valor da base");
+            if(typeof numero !== "number") return console.error("Entrada inválida");
+            if(base === 2){
+                return console.log(`${numero} base ${base} = ${parseInt(numero,base)} base 10`);//no segundo parâmetro, o método pega a base que foi dada e a converte em um número de base 10
+            }else if(base === 10){
+                return console.info(`${numero} base ${base} = ${numero.toString(2)} base 2`)//converte o número em string, mas na base que eu seleciono, no caso, a base 2
+            }else{
+                return console.error("Valor da base não é válido");
+            }
+        }
+        binarioDecimal(1001001,2)
+        binarioDecimal(4,10)
+        //16
+        console.log("********16********")
+        const monteFinal = (valor=undefined,desconto=0) => {
+            if(!valor) return console.warn("O campo de valor está vazio");
+            else if(typeof valor !== "number") return console.error("Apenas números são aceitos");
+            else if(valor <= 0) return console.error("Valor não pode ser 0 nem negativo");
+            if(typeof desconto !== "number") return console.error("Apenas números são aceitos");
+            if(Math.sign(desconto) === -1) return console.error("Você colocou um desconto negativo, por favor insira um desconto positivo")
+            return console.log(`O valor final com desconto é: ${valor-((valor*desconto)/100)}`)
+        }
+        monteFinal(1000,15)
+        //17
+        console.log("********17********")
+        const idade = (data = undefined) => {
+            if(data === undefined) return console.warn("Não colocaste a data");
+            if(!(data instanceof Date)) return console.error("O valor digitado não é válido");//o instanceof retorna se a variável em questão tem como protótipo o objeto Date
+            let hojeMenosData = new Date().getTime() - data.getTime()//criei uma nova dependência do objeto Date
+            let anosEmMs = 1000*60*60*24*365//ms em um ano
+            let anosHumanos = Math.floor(hojeMenosData/anosEmMs)//o tempo atual menos o tempo dado, dividido pelos anos em ms(tudo está em ms), me dá quando anos se passaram
+            return (Math.sign(anosHumanos) === -1)?console.info(`Falta ${Math.abs(anosHumanos)} anos para ${data.getFullYear()}`)
+            :(Math.sign(anosHumanos) === 1)?console.log(`Passaram-se ${anosHumanos} anos desde ${data.getFullYear()}`)
+            :console.log(`Estamos no ano atual ${data.getFullYear()}`)
+        }
+        idade()
+        idade({})
+        idade(false)
+        idade(new Date())
+        idade(new Date(1984,4,23))
+        idade(new Date(1999,11,06))
+    </script>
+</body>
+</html>

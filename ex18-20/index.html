@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Exercício 06</title>
+</head>
+<body>
+    <script>
+        /*18) Programa una función que dada una cadena de texto cuente el número de vocales y consonantes, 
+        pe. miFuncion("Hola Mundo") devuelva Vocales: 4, Consonantes: 5.
+        19) Programa una función que valide que un texto sea un nombre válido, pe. miFuncion("Jonathan MirCha") devolverá verdadero.
+        20) Programa una función que valide que un texto sea un email válido, pe. miFuncion("jonmircha@gmail.com") devolverá verdadero.
+        */
+        //18
+        console.log("*********18*******")
+        const vogalConsoante = (cadeia=undefined) =>{
+            if(cadeia === undefined) return console.warn("Por favor, insira um texto");
+            if(typeof cadeia !== "string") return console.error("O valor digitado é inválido");
+            let vogal = 0, consoante = 0, espaco = 0;
+            for(let contador of cadeia){
+                if(/[aeiouáàãâéêèíìóõôòúùûü]/i.test(contador)) vogal++;//como se fosse cadeia[contador]
+                else if(/[bcdfghijklmnpqrstvwxyz]/i.test(contador)) consoante++
+            }
+            return console.log(`Na cadeia de texto '${cadeia}' há ${vogal} vogais e ${consoante} consoantes`);
+        }
+        vogalConsoante("Olá, mundo")
+        //19
+        console.log("*********19*******")
+        const nombre = (nome = '') => {
+            if(!nome) return console.warn("Insira um nome");
+            if(typeof nome !== "string") return console.error("Não foi digitado um texto"); 
+            if(/[^a-z' 'ñáàãâéêèíìóõôòúùûü]/ig.test(nome)) return console.log(`${nome} não é um nome válido`);//se for verdade que o nome possui um caracter fora do conjunto a-b, o nome é inválido. O "^" nega toda a expressão
+            else return console.log(`${nome} é um nome válido`);
+        }
+        nombre()
+        nombre(3)
+        nombre("Marco Vinicius")
+        nombre("Carlos,")
+        nombre("Dom João")
+        //20
+        console.log("*********20*******")
+        const validacaoEmail = (email = undefined) => {
+            if(email === undefined) return console.warn("O campo de email está vazio");
+            if(typeof email !== "string") return console.error("Valor digitado é inválido");
+            let exRe = /[a-z0-9]+(\.[_a-z0-9]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,15})/i
+            if(exRe.test(email)) return console.log(`O email ${email} é válido`);
+            else return console.log(`O email  ${email}  é inválido`);
+        }
+        validacaoEmail("marvibelmont@gmail.com")
+        validacaoEmail("marvi.com")
+        validacaoEmail("@gmail.com")
+        validacaoEmail(".com")
+        validacaoEmail("marvi@gmail")
+        validacaoEmail("marvibelmont@fatec.org")
+        validacaoEmail("marco.paula2@fatec.sp.gov")
+    </script>
+</body>
+</html>
